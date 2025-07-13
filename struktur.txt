@@ -1,0 +1,26 @@
+.
+├── app
+│   ├── controller
+│   │   ├── AdminController.php
+│   │   ├── AuthController.php
+│   │   └── SuratIjinController.php
+│   └── model
+│       └── SuratIjin.php
+├── config
+│   └── database.php
+├── core
+│   ├── Controller.php
+│   └── Model.php
+├── public
+│   └── index.php
+├── struktur.txt
+└── views
+    ├── admin
+    │   └── rekap.php
+    ├── auth
+    │   └── login.php
+    └── surat
+        ├── cetak.php
+        └── input.php
+
+11 directories, 13 files

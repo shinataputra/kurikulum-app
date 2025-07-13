@@ -17,7 +17,8 @@ spl_autoload_register(function ($class) {
 });
 
 // Default ke fitur user biasa, bukan login
-$url = $_GET['url'] ?? 'suratIjin/inputForm';
+$url = $_GET['url'] ?? 'LandingPage/show';
+
 
 $url = explode('/', $url);
 
