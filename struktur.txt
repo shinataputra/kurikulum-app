@@ -3,6 +3,7 @@
 │   ├── controller
 │   │   ├── AdminController.php
 │   │   ├── AuthController.php
+│   │   ├── LandingPageController.php
 │   │   └── SuratIjinController.php
 │   └── model
 │       └── SuratIjin.php
@@ -12,6 +13,8 @@
 │   ├── Controller.php
 │   └── Model.php
 ├── public
+│   ├── assets
+│   │   └── img
 │   └── index.php
 ├── struktur.txt
 └── views
@@ -19,8 +22,13 @@
     │   └── rekap.php
     ├── auth
     │   └── login.php
+    ├── landing.php
     └── surat
         ├── cetak.php
-        └── input.php
+        ├── input.php
+        ├── input_token.php
+        ├── qr.php
+        ├── redirect-to-print.php
+        └── token.php
 
-11 directories, 13 files
+13 directories, 19 files

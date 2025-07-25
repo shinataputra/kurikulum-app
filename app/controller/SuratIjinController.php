@@ -1,5 +1,7 @@
 <?php
 require_once(__DIR__ . '/../model/SuratIjin.php');
+require_once __DIR__ . '/../../vendor/autoload.php'; // Autoload composer
+use Dompdf\Dompdf;
 
 class SuratIjinController
 {
@@ -42,6 +44,7 @@ class SuratIjinController
             $data = [
                 'nama'      => $_POST['nama'],
                 'kelas'     => $_POST['kelas'],
+                'no_telp'   => $_POST['no_telp'],
                 'jam_ke'    => $_POST['jam_ke'],
                 'keperluan' => $_POST['keperluan'],
                 'qr_token'  => $token,
@@ -98,6 +101,7 @@ class SuratIjinController
             $data = [
                 'nama'      => $_POST['nama'],
                 'kelas'     => $_POST['kelas'],
+                'no_telp'   => $_POST['no_telp'],
                 'jam_ke'    => $_POST['jam_ke'],
                 'keperluan' => $_POST['keperluan'],
             ];
@@ -111,5 +115,107 @@ class SuratIjinController
     public function inputTokenForm()
     {
         include(__DIR__ . '/../../views/surat/input_token.php');
+    }
+
+    public function cetakPdf()
+    {
+        // // Ambil data dari POST (atau GET)
+        $surat = [
+            'nama' => $_POST['nama'] ?? '',
+            'kelas' => $_POST['kelas'] ?? '',
+            'no_telp' => $_POST['no_telp'] ?? '',
+            'jam_ke' => $_POST['jam_ke'] ?? '',
+            'keperluan' => $_POST['keperluan'] ?? ''
+        ];
+
+        // Ambil data dari POST
+        $nama = $_POST['nama'] ?? '';
+        $kelas = $_POST['kelas'] ?? '';
+        $no_telp = $_POST['no_telp'] ?? '';
+        $jam_ke = $_POST['jam_ke'] ?? '';
+        $keperluan = $_POST['keperluan'] ?? '';
+
+
+        // Simpan data ke database
+        $suratIjin = new SuratIjin();
+        $suratIjin->createWithToken([
+            'nama'      => $nama,
+            'kelas'     => $kelas,
+            'no_telp'   => $no_telp,
+            'jam_ke'    => $jam_ke,
+            'keperluan' => $keperluan,
+        ]);
+
+        // Konversi hari ke Bahasa Indonesia
+        $hari_en = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        $hari_id = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+        $hari = str_replace($hari_en, $hari_id, date('l'));
+        $tanggal = date('d-m-Y');
+
+        // Ambil konten cetak dari view (tanpa <body onload="window.print()">)
+        ob_start();
+        include(__DIR__ . '/../../views/surat/cetak_pdf_template.php'); // Buat file ini dari cetak.php, lihat di bawah!
+        $html = ob_get_clean();
+
+        // Buat PDF
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'potrait');
+        $dompdf->render();
+
+        // Tampilkan PDF di tab baru
+        $dompdf->stream('Surat-Ijin.pdf', ['Attachment' => false]);
+        exit;
+    }
+
+    public function cetakPdfbyToken()
+    {
+        // Ambil token dari GET atau POST
+        $token = $_GET['token'] ?? $_POST['token'] ?? '';
+
+        if (!$token) {
+            echo "Token tidak ditemukan.";
+            exit;
+        }
+
+
+
+        // Ambil surat dari database berdasarkan token
+        $suratIjin = new SuratIjin();
+        $surat = $suratIjin->findByToken($token);
+
+        $tanggalToken = date('Y-m-d', strtotime($surat['tanggal']));
+        $hariIni = date('Y-m-d');
+
+        if ($tanggalToken !== $hariIni) {
+            echo "<script>alert('Token hanya berlaku di tanggal yang sama saat dibuat.'); window.location.href='./';</script>";
+            return;
+        }
+
+        if (!$surat) {
+            echo "Surat dengan token ini tidak ditemukan.";
+            exit;
+        }
+
+        // Konversi hari ke Bahasa Indonesia
+        $hari_en = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        $hari_id = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+        $hari = str_replace($hari_en, $hari_id, date('l'));
+        $tanggal = date('d-m-Y');
+
+        // Gunakan template cetak PDF, pastikan file ini menerima $surat, $hari, $tanggal
+        ob_start();
+        include(__DIR__ . '/../../views/surat/cetak_pdf_template.php');
+        $html = ob_get_clean();
+
+        // Generate PDF dengan dompdf
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'potrait');
+        $dompdf->render();
+
+        // Output PDF di browser
+        $dompdf->stream('Surat-Ijin.pdf', ['Attachment' => false]);
+        exit;
     }
 }

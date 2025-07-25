@@ -36,3 +36,5 @@ if (class_exists($controllerName)) {
 } else {
     echo "Controller <b>$controllerName</b> tidak ditemukan.";
 }
+
+

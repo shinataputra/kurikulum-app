@@ -13,7 +13,7 @@
         <p class="text-sm text-gray-600 mb-6">Masukkan token surat ijin dari siswa untuk mencetak.</p>
 
         <form method="get" action="./" class="space-y-4" target="_blank">
-            <input type="hidden" name="url" value="SuratIjin/printByToken">
+            <input type="hidden" name="url" value="SuratIjin/CetakPdfbyToken">
 
             <input
                 type="text"

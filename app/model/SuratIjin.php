@@ -5,11 +5,12 @@ class SuratIjin extends Model
 {
     public function create($data)
     {
-        $sql = "INSERT INTO surat_ijin (nama, kelas, jam_ke, keperluan) VALUES (:nama, :kelas, :jam_ke, :keperluan)";
+        $sql = "INSERT INTO surat_ijin (nama, kelas, no_telp, jam_ke, keperluan) VALUES (:nama, :kelas, : no_telp, :jam_ke, :keperluan)";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([
             ':nama'      => $data['nama'],
             ':kelas'     => $data['kelas'],
+            ':no_telp'   => $data['no_telp'] ?? null, // no_telp bisa null
             ':jam_ke'    => $data['jam_ke'],
             ':keperluan' => $data['keperluan'],
         ]);
@@ -67,12 +68,13 @@ class SuratIjin extends Model
     public function createWithToken($data)
     {
         $token = $this->generateToken();
-        $sql = "INSERT INTO surat_ijin (nama, kelas, jam_ke, keperluan, print_token) 
-            VALUES (:nama, :kelas, :jam_ke, :keperluan, :token)";
+        $sql = "INSERT INTO surat_ijin (nama, kelas, no_telp,jam_ke, keperluan, print_token) 
+            VALUES (:nama, :kelas, :no_telp, :jam_ke, :keperluan, :token)";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([
             ':nama'      => $data['nama'],
             ':kelas'     => $data['kelas'],
+            ':no_telp'   => $data['no_telp'],
             ':jam_ke'    => $data['jam_ke'],
             ':keperluan' => $data['keperluan'],
             ':token'     => $token
