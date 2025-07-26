@@ -17,7 +17,10 @@ class GuruPiketController
     // Konfirmasi izin
     public function konfirmasi()
     {
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
         if (!isset($_SESSION['guru_piket'])) {
             header('Location: index.php?url=auth/login');
             exit;
