@@ -26,10 +26,12 @@ class GuruPiketController
         $id = $_GET['id'] ?? null;
         if ($id) {
             $model = new SuratIjin();
-            $model->konfirmasi($id);
+            $model->konfirmasi($id, $_SESSION['nama'] ?? 'Tanpa Nama');
         }
 
-        header('Location: index.php?url=gurupiket/rekap');
+        $tanggal = $_GET['tanggal'] ?? null;
+        $queryString = $tanggal ? '&tanggal=' . urlencode($tanggal) : '';
+        header('Location: index.php?url=gurupiket/rekap' . $queryString);
         exit;
     }
 }
