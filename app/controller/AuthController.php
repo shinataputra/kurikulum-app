@@ -9,8 +9,11 @@ class AuthController
             header('Location: index.php?url=admin/rekap');
             exit;
         } elseif (isset($_SESSION['guru_piket'])) {
-            header('Location: index.php?url=guru_piket/rekap');
+            $tanggal = date('Y-m-d');
+            header("Location: index.php?url=gurupiket/rekap&tanggal=$tanggal");
             exit;
+            // header('Location: index.php?url=gurupiket/rekap');
+            // exit;
         }
 
         require_once __DIR__ . '/../../views/auth/login.php';
@@ -36,7 +39,8 @@ class AuthController
             $suratIjin = new SuratIjin();
             $suratIjin->createlog_piket(['nama_guru' => $nama]);
 
-            header('Location: index.php?url=gurupiket/rekap');
+            $tanggal = date('Y-m-d');
+            header("Location: index.php?url=gurupiket/rekap&tanggal=$tanggal");
             exit;
         }
 

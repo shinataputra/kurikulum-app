@@ -92,11 +92,12 @@ class SuratIjin extends Model
         return $this->conn->lastInsertId();
     }
 
-    public function konfirmasi($id)
+    public function konfirmasi($id, $namaGuru)
     {
-        $stmt = $this->conn->prepare("UPDATE surat_ijin SET status = 'disetujui' WHERE id = ?");
-        return $stmt->execute([$id]);
+        $stmt = $this->conn->prepare("UPDATE surat_ijin SET status = 'disetujui', guru_piket = ? WHERE id = ?");
+        return $stmt->execute([$namaGuru, $id]);
     }
+
 
     public function getAll($tanggal = null)
     {
