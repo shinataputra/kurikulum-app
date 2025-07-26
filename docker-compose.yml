@@ -2,7 +2,7 @@ services:
   app:
     build: .
     ports:
-      - "8282:80"  # ganti sesuai port yang kamu mau
+      - "8282:80" # ganti sesuai port yang kamu mau
     volumes:
       - .:/var/www/html
     depends_on:
@@ -14,7 +14,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: dbkurikulum
       MYSQL_USER: root
-      MYSQL_PASSWORD: password
+      MYSQL_PASSWORD: root
     ports:
       - "3306:3306"
     volumes:
