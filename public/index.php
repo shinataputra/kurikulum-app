@@ -18,9 +18,26 @@ spl_autoload_register(function ($class) {
 
 // Default ke fitur user biasa, bukan login
 $url = $_GET['url'] ?? 'LandingPage/show';
+// Alias URL biar pendek
+$aliasRoutes = [
+    'login'     => 'Auth/login',
+    'logout'    => 'Auth/logout',
+    'admin'     => 'AdminDashboard/index',
+    'piket'     => 'GuruPiket/index',
+    // Tambah alias lain sesuai kebutuhan
+];
+
+$urlParam = $_GET['url'] ?? 'LandingPage/show';
+
+// Ganti jika pakai alias
+if (array_key_exists($urlParam, $aliasRoutes)) {
+    $urlParam = $aliasRoutes[$urlParam];
+}
+
+$url = explode('/', $urlParam);
 
 
-$url = explode('/', $url);
+// $url = explode('/', $url);
 
 $controllerName = ucfirst($url[0]) . 'Controller';
 $methodName = $url[1] ?? 'index';
@@ -36,5 +53,3 @@ if (class_exists($controllerName)) {
 } else {
     echo "Controller <b>$controllerName</b> tidak ditemukan.";
 }
-
-

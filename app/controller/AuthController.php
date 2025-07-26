@@ -1,37 +1,51 @@
 <?php
+require_once(__DIR__ . '/../model/SuratIjin.php');
+
 class AuthController
 {
-    // Tampilkan form login (hanya jika akses URL langsung)
     public function login()
     {
-        // Jika sudah login, redirect ke admin/rekap
         if (isset($_SESSION['admin'])) {
             header('Location: index.php?url=admin/rekap');
             exit;
+        } elseif (isset($_SESSION['guru_piket'])) {
+            header('Location: index.php?url=guru_piket/rekap');
+            exit;
         }
-        // Tidak ada link/menu login di aplikasi, hanya bisa akses lewat url
+
         require_once __DIR__ . '/../../views/auth/login.php';
     }
 
-    // Proses login
     public function doLogin()
     {
         $username = $_POST['username'] ?? '';
         $password = $_POST['password'] ?? '';
 
-        // Hardcoded, bisa diganti cek ke database
         if ($username === 'admin' && $password === 'admin123') {
             $_SESSION['admin'] = true;
             header('Location: index.php?url=admin/rekap');
             exit;
-        } else {
-            $_SESSION['login_error'] = 'Username atau password salah!';
-            header('Location: index.php?url=auth/login');
+        }
+
+        if ($username === 'guru' && $password === 'piket123') {
+            $nama = $_POST['nama'] ?? 'Tanpa Nama';
+            $_SESSION['guru_piket'] = true;
+            $_SESSION['nama'] = $nama;
+
+            // INSERT ke log_piket
+            $suratIjin = new SuratIjin();
+            $suratIjin->createlog_piket(['nama_guru' => $nama]);
+
+            header('Location: index.php?url=gurupiket/rekap');
             exit;
         }
+
+        $_SESSION['login_error'] = 'Username atau password salah!';
+        header('Location: index.php?url=auth/login');
+        exit;
     }
 
-    // Logout admin
+
     public function logout()
     {
         session_destroy();

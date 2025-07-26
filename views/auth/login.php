@@ -1,85 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 
 <head>
-    <title>Login Admin</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
-        }
-
-        .login-box {
-            width: 350px;
-            margin: 80px auto;
-            background: #fff;
-            padding: 30px;
-            box-shadow: 0 0 12px #ccc;
-            border-radius: 8px;
-        }
-
-        .login-box h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .input-group {
-            margin-bottom: 15px;
-        }
-
-        .input-group label {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-        }
-
-        .error {
-            color: #d00;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        button {
-            width: 100%;
-            padding: 10px;
-            background: #2580e7;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-
-        button:hover {
-            background: #1860b1;
-            cursor: pointer;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
-    <div class="login-box">
-        <h2>Login Admin</h2>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+    <div class="bg-white p-8 rounded-xl shadow-md w-full max-w-md">
+        <h2 class="text-2xl font-bold mb-6 text-center">Login Pengguna</h2>
+
         <?php if (!empty($_SESSION['login_error'])): ?>
-            <div class="error"><?= $_SESSION['login_error'];
-                                unset($_SESSION['login_error']); ?></div>
+            <div class="bg-red-100 text-red-700 p-3 rounded mb-4">
+                <?= $_SESSION['login_error'] ?>
+            </div>
+            <?php unset($_SESSION['login_error']); ?>
         <?php endif; ?>
-        <form method="post" action="index.php?url=auth/doLogin">
-            <div class="input-group">
-                <label for="username">Username Admin</label>
-                <input type="text" id="username" name="username" required autofocus>
+
+        <form method="POST" action="index.php?url=auth/doLogin" class="space-y-4">
+            <input type="text" name="username" placeholder="Username" required
+                class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-200" />
+
+            <input type="password" name="password" placeholder="Password" required
+                class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-200" />
+
+            <div id="namaGuru" class="hidden">
+                <input type="text" name="nama" placeholder="Nama Guru Piket"
+                    class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-200" />
             </div>
-            <div class="input-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <button type="submit">Login</button>
+
+            <button type="submit"
+                class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
+                Login
+            </button>
         </form>
     </div>
+
+    <script>
+        document.querySelector('input[name="username"]').addEventListener('input', function() {
+            const namaDiv = document.getElementById('namaGuru');
+            if (this.value.trim().toLowerCase() === 'guru') {
+                namaDiv.classList.remove('hidden');
+            } else {
+                namaDiv.classList.add('hidden');
+            }
+        });
+    </script>
+
 </body>
 
 </html>
