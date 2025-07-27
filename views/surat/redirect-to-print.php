@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Mengalihkan...</title>
+    <link rel="icon" type="image/png" href="assets/img/iconsmexa.png">
     <script>
         window.onload = function() {
             const url = './?url=SuratIjin/print&id=<?= $lastId ?>';
