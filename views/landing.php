@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Portal Kurikulum - SMKN 1 Probolinggo</title>
+    <link rel="icon" type="image/png" href="assets/img/iconsmexa.png">
+
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
