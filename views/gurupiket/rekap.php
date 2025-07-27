@@ -55,7 +55,7 @@
                         <tr class="hover:bg-gray-50 text-center">
                             <td class="p-3 border"><?= $i + 1 ?></td>
                             <td class="p-3 border text-left"><?= htmlspecialchars($s['nama']) ?></td>
-                            <td class="p-3 border"><?= htmlspecialchars($s['kelas']) ?></td>
+                            <td class="p-3 border w-[100px]"><?= htmlspecialchars($s['kelas']) ?></td>
                             <td class="p-3 border"><?= htmlspecialchars($s['jam_ke']) ?></td>
                             <td class="p-3 border text-left break-words max-w-[500px]"><?= htmlspecialchars($s['keperluan']) ?></td>
                             <td class="p-1 border w-[100px] whitespace-nowrap">
