@@ -110,4 +110,14 @@ class SuratIjin extends Model
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getByDateRange($dari, $sampai)
+    {
+        $stmt = $this->conn->prepare("SELECT * FROM surat_ijin WHERE tanggal BETWEEN ? AND ? ORDER BY tanggal DESC");
+        $stmt->execute([
+            $dari . ' 00:00:00',
+            $sampai . ' 23:59:59'
+        ]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
