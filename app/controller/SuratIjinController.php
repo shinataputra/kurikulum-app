@@ -164,7 +164,13 @@ class SuratIjinController
         $dompdf->render();
 
         // Tampilkan PDF di tab baru
-        $dompdf->stream('Surat-Ijin.pdf', ['Attachment' => false]);
+        // $dompdf->stream('Surat-Ijin.pdf', ['Attachment' => false]);
+        $dompdf->stream('Surat Ijin Siswa - ' . $surat['nama'] . '.pdf', ['Attachment' => false]);
+
+        // $namaFile = 'Surat Ijin Siswa - ' . preg_replace('/[^a-zA-Z0-9\s]/', '', $surat['nama']) . ' - ' . preg_replace('/[^a-zA-Z0-9\s]/', '', $kelas['kelas']) . '.pdf';
+        // $dompdf->stream($namaFile, ['Attachment' => false]);
+
+
         exit;
     }
 
@@ -215,7 +221,8 @@ class SuratIjinController
         $dompdf->render();
 
         // Output PDF di browser
-        $dompdf->stream('Surat-Ijin.pdf', ['Attachment' => false]);
+        // $dompdf->stream('Surat-Ijin.pdf', ['Attachment' => false]);
+        $dompdf->stream('Surat Ijin Siswa - ' . $surat['nama'] . '.pdf', ['Attachment' => false]);
         exit;
     }
 }
