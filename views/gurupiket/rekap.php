@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Dashboard Guru Piket</title>
+    <link rel="icon" type="image/png" href="assets/img/iconsmexa.png">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -56,21 +57,21 @@
                             <td class="p-3 border text-left"><?= htmlspecialchars($s['nama']) ?></td>
                             <td class="p-3 border"><?= htmlspecialchars($s['kelas']) ?></td>
                             <td class="p-3 border"><?= htmlspecialchars($s['jam_ke']) ?></td>
-                            <td class="p-3 border text-left"><?= htmlspecialchars($s['keperluan']) ?></td>
-                            <td class="p-3 border">
+                            <td class="p-3 border text-left break-words max-w-[500px]"><?= htmlspecialchars($s['keperluan']) ?></td>
+                            <td class="p-1 border w-[100px] whitespace-nowrap">
                                 <a href="https://wa.me/62<?= preg_replace('/[^0-9]/', '', $s['no_telp']) ?>" target="_blank"
-                                    class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded-md">WhatsApp</a>
+                                    class="bg-green-500 hover:bg-green-600 text-white px-2 py-1 rounded block w-full text-center">WhatsApp</a>
                             </td>
-                            <td class="p-3 border">
+                            <td class="p-1 border w-[100px] whitespace-nowrap">
                                 <?php if ($s['status'] !== 'disetujui'): ?>
                                     <a href="index.php?url=gurupiket/konfirmasi&id=<?= $s['id'] ?>&tanggal=<?= $_GET['tanggal'] ?? '' ?>"
-                                        class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-md">
-                                        Izinkan
-                                    </a>
+                                        class="bg-yellow-500 hover:bg-yellow-600 text-white px-2 py-1 rounded block w-full text-center">Izinkan</a>
                                 <?php else: ?>
-                                    <span class="bg-green-600 text-white px-3 py-1 rounded-md">Sudah Diizinkan</span>
+                                    <span class="bg-gray-400 text-white px-2 py-1 rounded block w-full text-center break-words">Diizinkan</span>
                                 <?php endif; ?>
                             </td>
+
+
                         </tr>
                     <?php endforeach ?>
                 </tbody>
