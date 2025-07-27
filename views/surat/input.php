@@ -71,6 +71,9 @@
                     Barcode (nonaktif)
                 </button>
             </div>
+            <a href="./" class="block mt-3 text-xs sm:text-sm text-gray-500 hover:text-blue-500 transition">
+                ⬅️ Kembali ke Home Page
+            </a>
 
         </form>
         <script>
