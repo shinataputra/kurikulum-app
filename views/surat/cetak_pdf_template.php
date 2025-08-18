@@ -169,7 +169,7 @@
                 <ul>
                     <li>Siswa wajib melapor kepada guru piket sebelum meninggalkan sekolah.</li>
                     <li>Surat izin ini hanya berlaku pada tanggal yang tertera.</li>
-                    <li>Siswa diharapkan kembali ke sekolah setelah keperluan selesai (jika memungkinkan).</li>
+                    <li>Siswa diharapkan kembali ke sekolah setelah keperluan selesai.</li>
                     <li>Penggunaan surat ini harus sesuai dengan keperluan yang ditulis.</li>
                     <li>Setiap pelanggaran terhadap ketentuan ini dapat dikenai sanksi sesuai aturan sekolah.</li>
                 </ul>
