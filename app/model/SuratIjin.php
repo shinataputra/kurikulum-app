@@ -135,14 +135,12 @@ class SuratIjin extends Model
 
     public function getSudahIzinHariIni()
     {
-        $stmt = $this->conn->prepare("SELECT * FROM surat_ijin WHERE status = 'disetujui' AND DATE(tanggal) = CURDATE()");
+        $stmt = $this->conn->prepare("
+        SELECT * FROM surat_ijin 
+        WHERE status = 'disetujui' 
+        AND DATE(tanggal) = CURDATE()
+    ");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-
-    
-
-
-
-    
 }
