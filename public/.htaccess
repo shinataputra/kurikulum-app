@@ -1,7 +1,6 @@
 RewriteEngine On
 
-# Redirect all requests to index.php (except existing files/folders)
-
+# Kalau file/folder tidak ada, lempar ke index.php
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.\*)$ index.php [QSA,L]
+RewriteRule ^(.*)$ index.php?url=$1 [L,QSA]

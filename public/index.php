@@ -24,6 +24,7 @@ $aliasRoutes = [
     'logout'    => 'Auth/logout',
     'admin'     => 'AdminDashboard/index',
     'piket'     => 'GuruPiket/index',
+    'dashboard' => 'Dashboard/index',
     // Tambah alias lain sesuai kebutuhan
 ];
 

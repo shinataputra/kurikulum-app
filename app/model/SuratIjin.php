@@ -120,4 +120,29 @@ class SuratIjin extends Model
         ]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getBelumIzinHariIni()
+    {
+        $stmt = $this->conn->prepare("
+        SELECT * FROM surat_ijin
+        WHERE status = 'pending'
+        AND DATE(tanggal) = CURDATE()
+    ");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+    public function getSudahIzinHariIni()
+    {
+        $stmt = $this->conn->prepare("SELECT * FROM surat_ijin WHERE status = 'disetujui' AND DATE(tanggal) = CURDATE()");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    
+
+
+
+    
 }
