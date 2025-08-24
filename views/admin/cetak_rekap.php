@@ -43,8 +43,10 @@
                 <th>No</th>
                 <th>Nama</th>
                 <th style="width:50px; text-align:center;">Kelas</th>
-                <th>Tanggal</th>
+                <th style="text-align: center;">Tanggal</th>
                 <th>Keterangan</th>
+                <th style="text-align:center;">Status</th>
+                <th style="text-align:center;">Diizinkan oleh</th>
             </tr>
         </thead>
         <tbody>
@@ -54,8 +56,10 @@
                         <td style="text-align: center;"><?= $i + 1 ?></td>
                         <td><?= htmlspecialchars($row['nama']) ?></td>
                         <td style="text-align: center;"><?= htmlspecialchars($row['kelas']) ?></td>
-                        <td><?= htmlspecialchars($row['tanggal']) ?></td>
+                        <td style="text-align: center;"><?= htmlspecialchars($row['tanggal']) ?></td>
                         <td><?= htmlspecialchars($row['keperluan']) ?></td>
+                        <td style="text-align: center;"><?= $row['status'] ?></td>
+                        <td style="text-align: center;"><?= htmlspecialchars($row['guru_piket']) ?></td>
                     </tr>
                 <?php endforeach ?>
             <?php else: ?>

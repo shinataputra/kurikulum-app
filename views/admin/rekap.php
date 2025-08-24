@@ -68,6 +68,8 @@ $logoutUrl = 'index.php?url=auth/logout';
                         <th class="p-3 border">Jam ke</th>
                         <th class="p-3 border">Keperluan</th>
                         <th class="p-3 border">Tanggal</th>
+                        <th class="p-3 border">Status</th>
+                        <th class="p-3 border">Diizinkan oleh</th>
                     </tr>
                 </thead>
                 <?php foreach ($data as $i => $surat): ?>
@@ -78,6 +80,15 @@ $logoutUrl = 'index.php?url=auth/logout';
                         <td class="p-3 border"><?= htmlspecialchars($surat['jam_ke']) ?></td>
                         <td class="p-3 border text-left break-words max-w-[500px]"><?= htmlspecialchars($surat['keperluan']) ?></td>
                         <td class="p-3 border"><?= $surat['tanggal'] ?></td>
+                        <td class="p-3 border">
+                            <?php if ($surat['status'] === 'disetujui'): ?>
+                                <span class="text-green-600 font-semibold">Disetujui</span>
+                            <?php elseif ($surat['status'] === 'pending'): ?>
+                                <span class="text-red-600 font-semibold">Belum disetujui</span>
+                            <?php else: ?>
+                                <span class="text-gray-600 font-semibold">Tidak ada</span>
+                            <?php endif; ?>
+                        <td class="p-3 border"><?= $surat['guru_piket'] ?></td>
                     </tr>
                 <?php endforeach ?>
             </table>
