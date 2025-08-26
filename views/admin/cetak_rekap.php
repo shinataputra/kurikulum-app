@@ -59,7 +59,8 @@
                         <td style="text-align: center;"><?= htmlspecialchars($row['tanggal']) ?></td>
                         <td><?= htmlspecialchars($row['keperluan']) ?></td>
                         <td style="text-align: center;"><?= $row['status'] ?></td>
-                        <td style="text-align: center;"><?= htmlspecialchars($row['guru_piket']) ?></td>
+
+                        <td style="text-align: center;"><?= htmlspecialchars($row['guru_piket'] ?? '') ?></td>
                     </tr>
                 <?php endforeach ?>
             <?php else: ?>
