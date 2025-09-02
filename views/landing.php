@@ -42,6 +42,11 @@
                 🔑 Cetak Surat dengan Token
             </a>
 
+            <a href="https://lookerstudio.google.com/reporting/b9893283-7d39-4252-9c03-359abad8bce0"
+                class="block bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 text-white px-4 py-3 rounded-lg font-medium transition-all text-center">
+                🔍 Cek Guru Wali
+            </a>
+
 
             <a href="http://36.92.104.129:8154/"
                 class="flex items-center justify-center gap-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 text-white px-4 py-3 rounded-lg font-medium transition-all text-center">
