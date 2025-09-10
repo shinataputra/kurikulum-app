@@ -5,6 +5,8 @@ services:
       - "8282:80" # ganti sesuai port yang kamu mau
     volumes:
       - .:/var/www/html
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
     depends_on:
       - db
 
