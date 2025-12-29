@@ -1,9 +1,8 @@
 services:
   app:
-    image: kurikulum-app:latest
-    container_name: kurikulum_app
+    build: .
     ports:
-      - "80:80"
+      - "8282:80"
     env_file:
       - .env
     depends_on:
