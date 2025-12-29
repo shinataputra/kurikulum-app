@@ -1,0 +1,27 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8282:80" # ganti sesuai port yang kamu mau
+    volumes:
+      - .:/var/www/html
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0.40
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: dbkurikulum
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+      - TZ=Asia/Jakarta
+
+volumes:
+  dbdata:

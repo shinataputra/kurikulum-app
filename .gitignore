@@ -1,1 +1,17 @@
-config/database.php
+# Environment
+.env
+
+# Docker
+dbdata
+
+# Database dumps / backup
+*.sql
+
+# Git & OS
+.git
+.gitignore
+.DS_Store
+Thumbs.db
+
+# Logs & cache (kalau ada)
+*.log

@@ -1,0 +1,7 @@
+.git
+.gitignore
+dbdata
+*.sql
+node_modules
+.env
+docker-compose*.yml
