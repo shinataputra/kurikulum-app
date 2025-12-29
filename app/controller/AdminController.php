@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__ . '/../Model/SuratIjin.php');
+require_once(__DIR__ . '/../model/SuratIjin.php');
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 use Dompdf\Dompdf;
