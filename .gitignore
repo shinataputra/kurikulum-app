@@ -2,16 +2,19 @@
 .env
 
 # Docker
-dbdata
+dbdata/
+docker-compose.prod.yml   # optional
 
 # Database dumps / backup
 *.sql
 
-# Git & OS
-.git
+# OS / Git
+.git/
 .gitignore
 .DS_Store
 Thumbs.db
 
-# Logs & cache (kalau ada)
+# Logs & cache
 *.log
+cache/
+tmp/
