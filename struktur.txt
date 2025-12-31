@@ -1,14 +1,21 @@
 .
 ├── Dockerfile
+├── Dockerfile copy
 ├── app
 │   ├── controller
 │   │   ├── AdminController.php
 │   │   ├── AuthController.php
+│   │   ├── DashboardController.php
 │   │   ├── GuruPiketController.php
 │   │   ├── LandingPageController.php
 │   │   └── SuratIjinController.php
 │   └── model
+│       ├── Guru.php
 │       └── SuratIjin.php
+├── backup
+│   ├── database.sql
+│   ├── dbbackup.sql
+│   └── dbkurikulum.sql
 ├── composer.json
 ├── composer.lock
 ├── config
@@ -16,7 +23,12 @@
 ├── core
 │   ├── Controller.php
 │   └── Model.php
-├── dbkurikulum.sql
+├── database
+│   └── migration
+│       ├── 2025_1_create_table_guru.sql
+│       └── 2025_2_insert_table_guru.sql
+├── docker-compose copy.yml
+├── docker-compose.prod.yml
 ├── docker-compose.yml
 ├── public
 │   ├── assets
@@ -64,4 +76,4 @@
         ├── redirect-to-print.php
         └── token.php
 
-24 directories, 41 files
+27 directories, 50 files
