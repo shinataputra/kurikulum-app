@@ -29,12 +29,35 @@
         </div>
 
         <!-- Login -->
-        <div id="loginForm" class="flex gap-2">
+        <!-- <div id="loginForm" class="flex gap-2">
             <input type="text" placeholder="Masukkan Nama Guru Piket" id="namaGuru"
                 class="flex-1 border rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-yellow-400">
             <button onclick="loginGuru()"
                 class="bg-yellow-500 hover:bg-yellow-600 text-white font-medium px-4 py-2 rounded-lg">Login</button>
+        </div> -->
+
+        <div id="loginForm" class="relative flex gap-2">
+            <input
+                type="text"
+                id="namaGuru"
+                placeholder="Ketik nama guru piket..."
+                autocomplete="off"
+                onkeyup="cariGuru(this.value)"
+                class="flex-1 border rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-yellow-400">
+
+            <button
+                onclick="loginGuru()"
+                class="bg-yellow-500 hover:bg-yellow-600 text-white font-medium px-4 py-2 rounded-lg">
+                Login
+            </button>
+
+            <!-- dropdown hasil -->
+            <ul
+                id="hasilGuru"
+                class="absolute top-full left-0 right-0 bg-white border rounded-lg shadow mt-1 max-h-48 overflow-y-auto hidden z-50">
+            </ul>
         </div>
+
 
         <div id="guruAktif" class="hidden">
             <p class="text-gray-700">Login sebagai: <span id="namaAktif" class="font-bold"></span></p>
@@ -123,7 +146,7 @@
     </div>
 
 
-    <script>
+    <!-- <script>
         // let guruAktif = null; // penanda login
 
         // Jam & Tanggal
@@ -205,7 +228,147 @@
                     }
                 });
         }
+    </script> -->
+
+    <script>
+        /* ===============================
+   JAM & TANGGAL
+================================ */
+        function updateWaktu() {
+            const now = new Date();
+            document.getElementById("tanggal").innerText = now.toLocaleDateString("id-ID", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric"
+            });
+            document.getElementById("jam").innerText = now.toLocaleTimeString("id-ID");
+        }
+        setInterval(updateWaktu, 1000);
+        updateWaktu();
+
+        /* ===============================
+           MOTIVASI
+        ================================ */
+        const motivasiList = [
+            "Mengajar itu investasi masa depan.",
+            "Sabar itu separuh dari ilmu.",
+            "Guru hebat melahirkan murid hebat.",
+            "Setiap hari adalah kesempatan belajar baru."
+        ];
+        document.getElementById("motivasi").innerText =
+            motivasiList[Math.floor(Math.random() * motivasiList.length)];
+
+        /* ===============================
+           LOGIN GURU
+        ================================ */
+        let guruId = localStorage.getItem("guru_id");
+        let guruNama = localStorage.getItem("guru_nama");
+
+        // update tampilan awal
+        if (guruId && guruNama) {
+            document.getElementById("namaAktif").innerText = guruNama;
+            document.getElementById("loginForm").classList.add("hidden");
+            document.getElementById("guruAktif").classList.remove("hidden");
+        }
+
+        let guruTerpilih = null;
+
+        // autocomplete cari guru
+        function cariGuru(keyword) {
+            if (keyword.length < 2) {
+                document.getElementById("hasilGuru").classList.add("hidden");
+                return;
+            }
+
+            fetch(`index.php?url=dashboard/cariGuru&q=${encodeURIComponent(keyword)}`)
+                .then(res => res.json())
+                .then(data => {
+                    const ul = document.getElementById("hasilGuru");
+                    ul.innerHTML = "";
+
+                    data.forEach(g => {
+                        ul.innerHTML += `
+                    <li class="px-3 py-2 hover:bg-yellow-100 cursor-pointer"
+                        onclick="pilihGuru(${g.id}, '${g.nama.replace(/'/g, "\\'")}')">
+                        ${g.nama}
+                    </li>`;
+                    });
+
+                    ul.classList.toggle("hidden", data.length === 0);
+                });
+        }
+
+        function pilihGuru(id, nama) {
+            guruTerpilih = {
+                id,
+                nama
+            };
+            document.getElementById("namaGuru").value = nama;
+            document.getElementById("hasilGuru").classList.add("hidden");
+        }
+
+        function loginGuru() {
+            if (!guruTerpilih) {
+                alert("Pilih guru dari daftar ya 🙂");
+                return;
+            }
+
+            guruId = guruTerpilih.id;
+            guruNama = guruTerpilih.nama;
+
+            localStorage.setItem("guru_id", guruId);
+            localStorage.setItem("guru_nama", guruNama);
+
+            document.getElementById("namaAktif").innerText = guruNama;
+            document.getElementById("loginForm").classList.add("hidden");
+            document.getElementById("guruAktif").classList.remove("hidden");
+        }
+
+        function logoutGuru() {
+            guruId = null;
+            guruNama = null;
+            guruTerpilih = null;
+
+            localStorage.removeItem("guru_id");
+            localStorage.removeItem("guru_nama");
+
+            document.getElementById("namaGuru").value = "";
+            document.getElementById("loginForm").classList.remove("hidden");
+            document.getElementById("guruAktif").classList.add("hidden");
+        }
+
+        /* ===============================
+           IZINKAN SURAT
+        ================================ */
+        function izinkan(id) {
+            if (!guruNama) {
+                alert("Silakan login sebagai guru piket terlebih dahulu!");
+                return;
+            }
+
+            fetch("Dashboard/konfirmasi", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: "id=" + encodeURIComponent(id) +
+                        "&guru=" + encodeURIComponent(guruNama)
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Izin berhasil oleh " + guruNama);
+                        location.reload();
+                    } else {
+                        alert("Gagal konfirmasi: " + (data.msg || ""));
+                    }
+                });
+        }
     </script>
+
+
+
 
 </body>
 

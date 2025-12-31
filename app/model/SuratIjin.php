@@ -17,12 +17,31 @@ class SuratIjin extends Model
         return $this->conn->lastInsertId();
     }
 
-    public function all()
+    // public function all()
+    // {
+    //     $sql = "SELECT * FROM surat_ijin ORDER BY tanggal DESC";
+    //     $stmt = $this->conn->query($sql);
+    //     return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // }
+
+
+    public function all($search = null)
     {
-        $sql = "SELECT * FROM surat_ijin ORDER BY tanggal DESC";
-        $stmt = $this->conn->query($sql);
+        $sql = "SELECT * FROM surat_ijin";
+        $params = [];
+
+        if ($search) {
+            $sql .= " WHERE nama LIKE :search OR keperluan LIKE :search OR kelas LIKE :search";
+            $params[':search'] = "%$search%";
+        }
+
+        $sql .= " ORDER BY tanggal DESC LIMIT 25";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute($params);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
 
     public function find($id)
     {
@@ -92,11 +111,27 @@ class SuratIjin extends Model
         return $this->conn->lastInsertId();
     }
 
+    // public function konfirmasi($id, $namaGuru)
+    // {
+    //     $stmt = $this->conn->prepare("UPDATE surat_ijin SET status = 'disetujui', guru_piket = ? WHERE id = ?");
+    //     return $stmt->execute([$namaGuru, $id]);
+    // }
+
     public function konfirmasi($id, $namaGuru)
     {
-        $stmt = $this->conn->prepare("UPDATE surat_ijin SET status = 'disetujui', guru_piket = ? WHERE id = ?");
+        $stmt = $this->conn->prepare(
+            "UPDATE surat_ijin
+         SET status = 'disetujui',
+             guru_piket = ?
+         WHERE id = ?"
+        );
+
         return $stmt->execute([$namaGuru, $id]);
     }
+
+
+
+
 
 
     public function getAll($tanggal = null)
@@ -141,6 +176,16 @@ class SuratIjin extends Model
         AND DATE(tanggal) = CURDATE()
     ");
         $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+    public function searchteacher($q)
+    {
+        $stmt = $this->conn->prepare(
+            "SELECT id, nama FROM guru WHERE nama LIKE ? AND aktif = 1 LIMIT 10"
+        );
+        $stmt->execute(["%$q%"]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

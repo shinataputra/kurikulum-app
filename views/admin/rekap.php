@@ -45,6 +45,7 @@ $logoutUrl = 'index.php?url=auth/logout';
                         href="index.php?url=admin/cetak&dari=<?= $_GET['dari'] ?? '' ?>&sampai=<?= $_GET['sampai'] ?? '' ?>" target="_blank">
                         Cetak PDF
                     </a>
+
                 </form>
 
                 <!-- Logout -->
@@ -88,7 +89,7 @@ $logoutUrl = 'index.php?url=auth/logout';
                             <?php else: ?>
                                 <span class="text-gray-600 font-semibold">Tidak ada</span>
                             <?php endif; ?>
-                        <td class="p-3 border"><?= $surat['guru_piket'] ?></td>
+                        <td class="p-3 border"><?= $surat['guru_piket'] ?? '' ?></td>
                     </tr>
                 <?php endforeach ?>
             </table>

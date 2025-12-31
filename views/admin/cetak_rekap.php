@@ -12,25 +12,47 @@
 
         h2 {
             text-align: center;
+            margin-bottom: 6px;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 15px;
+            margin-top: 10px;
         }
 
         th,
         td {
             border: 1px solid #000;
             padding: 6px 8px;
-            text-align: left;
+            vertical-align: top;
+            /* penting */
+            word-wrap: break-word;
+            /* DomPDF butuh ini */
         }
 
-        th {
-            background-color: #eee;
+        th,
+        td {
+            border: 1px solid #000;
+            padding: 6px 8px;
+            vertical-align: top;
+            word-wrap: break-word;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+
+        td.center {
+            text-align: center;
+        }
+
+        td.right {
+            text-align: right;
         }
     </style>
+
 </head>
 
 <body>
@@ -40,28 +62,29 @@
     <table>
         <thead>
             <tr>
-                <th>No</th>
-                <th>Nama</th>
-                <th style="width:50px; text-align:center;">Kelas</th>
-                <th style="text-align: center;">Tanggal</th>
-                <th>Keterangan</th>
-                <th style="text-align:center;">Status</th>
-                <th style="text-align:center;">Diizinkan oleh</th>
+                <th style="width:5%; text-align:center;">No</th>
+                <th style="width:20%; text-align:left;">Nama</th>
+                <th style="width:8%; text-align:center;">Kelas</th>
+                <th style="width:12%; text-align:center;">Tanggal</th>
+                <th style="width:30%; text-align:left;">Keterangan</th>
+                <th style="width:10%; text-align:center;">Status</th>
+                <th style="width:15%; text-align:left;">Diizinkan oleh</th>
             </tr>
         </thead>
+
         <tbody>
             <?php if (!empty($data)) : ?>
                 <?php foreach ($data as $i => $row): ?>
                     <tr>
-                        <td style="text-align: center;"><?= $i + 1 ?></td>
+                        <td class="center"><?= $i + 1 ?></td>
                         <td><?= htmlspecialchars($row['nama']) ?></td>
-                        <td style="text-align: center;"><?= htmlspecialchars($row['kelas']) ?></td>
-                        <td style="text-align: center;"><?= htmlspecialchars($row['tanggal']) ?></td>
+                        <td class="center"><?= htmlspecialchars($row['kelas']) ?></td>
+                        <td class="center"><?= htmlspecialchars($row['tanggal']) ?></td>
                         <td><?= htmlspecialchars($row['keperluan']) ?></td>
-                        <td style="text-align: center;"><?= $row['status'] ?></td>
-
-                        <td style="text-align: center;"><?= htmlspecialchars($row['guru_piket'] ?? '') ?></td>
+                        <td class="center"><?= htmlspecialchars($row['status']) ?></td>
+                        <td><?= htmlspecialchars($row['guru_piket'] ?? '') ?></td>
                     </tr>
+
                 <?php endforeach ?>
             <?php else: ?>
                 <tr>
