@@ -8,6 +8,10 @@ docker-compose.prod.yml   # optional
 # Database dumps / backup
 *.sql
 
+# KECUALI migration
+!database/
+!database/**/*.sql
+
 # OS / Git
 .git/
 .gitignore
