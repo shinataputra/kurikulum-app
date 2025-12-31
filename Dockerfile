@@ -25,3 +25,6 @@ RUN sed -ri 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-availabl
 
 # Permission
 RUN chown -R www-data:www-data /var/www/html
+
+# Set memory limit PHP
+RUN echo "memory_limit=512M" >> /usr/local/etc/php/conf.d/memory-limit.ini
