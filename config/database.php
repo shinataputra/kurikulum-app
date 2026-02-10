@@ -1,7 +1,7 @@
 <?php
-$host = "db";
-$user = "kurikulum";
-$pass = "kurikulum123";
+$host = "shared-mysql";
+$user = "root";
+$pass = "rootpass";
 $db   = "dbkurikulum";
 
 try {
